@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+
+		    <form action = "/test/" method = "GET">	
+		        By ID : <input type ="text" name="test"/>
+		        <input type ="submit" value ="Submit"/>
+		    </form>			
+
+		<div id="fingame">
+			<h3>Find a game</h3>
+		    <form action = "/games/" method = "GET">	
+		        By ID : <input type ="text" name ="_id"/>
+		        <input type ="submit" value ="Submit"/>
+		    </form>			
+		    <form action = "/games/" method = "GET">	
+		        By Name : <input type ="text" name ="name"/>
+		        <input type ="submit" value ="Submit"/>
+		    </form>			    
+		</div>
+
+		<div id="finuser">
+			<h3>Find a user</h3>
+		    <form action = "/users/" method = "GET">	
+		        By ID : <input type ="text" name ="_id"/>
+		        <input type ="submit" value ="Submit"/>
+		    </form>			
+		    <form action = "/users/" method = "GET">	
+		        By Email : <input type ="text" name ="email"/>
+		        <input type ="submit" value ="Submit"/>
+		    </form>			    
+		</div>
+
+	</body>
+</html>
