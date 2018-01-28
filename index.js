@@ -17,30 +17,12 @@ app.use(function(req, res, next) {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// En activant cette fonction nous pouvons accéder à un formulaire afin de faire des recherches via le navigateur
+// Cependant elle n'est pas encore totalement fonctionnelle et seul la partie "recherche user by email" est active
+/*
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html')
 })
-/*
-app.get('/search/:text', (req, res) => {
-  return client.games({
-      fields: '*',
-      limit: 20,
-      offset: 0,
-      search: req.params.text
-  }).then(igdbResponse => {
-    res.send(igdbResponse.body);
-  });
-});
-*/
-/*
-app.get('/game/:id', (req, res) => {
-  return client.games({
-      fields: '*',
-      ids: [req.params.id]
-  }).then(igdbResponse => {
-    res.send(igdbResponse.body[0]);
-  });
-});
 */
 var userRoutes = require('./api/routes/user-routes');
 userRoutes(app);
