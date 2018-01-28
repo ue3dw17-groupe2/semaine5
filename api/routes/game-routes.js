@@ -9,4 +9,7 @@ module.exports = function(app) {
   app.route('/game/:id')
     .get(gameCtrl.findGame);
 
+  app.route('/cache')
+   .delete(gameCtrl.clearCache);    
+
 };
