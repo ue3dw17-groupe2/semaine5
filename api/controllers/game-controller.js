@@ -16,20 +16,36 @@ MongoClient.connect(url, function(err, db) {
   });
 }); 
 
+// Sytème de mise en cache fonctionnel pour la partie recherche By Id
 exports.findGame = function(req, res) {
-  return client.games({
-      fields: '*',
-      ids: [req.params.id]
-  }).then(igdbResponse => {
-    res.send(igdbResponse.body[0]);
-    MongoClient.connect(url, function(err, db) {
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("ue3dw17s5");
+    dbo.collection("cache").find({id: Number(req.params.gameId)}).toArray(function(err, mongoose) {
       if (err) throw err;
-      var dbo = db.db("ue3dw17s5");
-      dbo.collection("cache").insert(igdbResponse.body[0], {new:true}, function(err, res) {
-        if (err) throw err;
-          console.log(res);
-          db.close();
-      });
+      if (mongoose.length) {
+        console.log("Présent en base");
+        res.json(mongoose);
+      }
+      else {
+        console.log("Nouvel entrée");
+          return client.games({
+              fields: '*',
+              ids: [req.params.gameId]
+          }).then(igdbResponse => {
+          res.send(igdbResponse.body);
+            MongoClient.connect(url, function(err, db) {
+              if (err) throw err;
+              var dbo = db.db("ue3dw17s5");
+              dbo.collection("cache").insert(igdbResponse.body, {new:true}, function(err, res) {
+                if (err) throw err;
+                  console.log(res);
+                  db.close();
+              });
+            });
+          });
+      }
+      db.close();
     });
   });
 };

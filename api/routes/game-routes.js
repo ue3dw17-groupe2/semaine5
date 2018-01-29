@@ -6,7 +6,7 @@ module.exports = function(app) {
   app.route('/search/:text')
     .get(gameCtrl.findGameByKeyWord);
 
-  app.route('/game/:id')
+  app.route('/game/:gameId')
     .get(gameCtrl.findGame);
 
   app.route('/cache')
